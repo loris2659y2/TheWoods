@@ -33,8 +33,10 @@ public class GameManager {
     private ImageView man;
     private boolean dead = false;
     private boolean clicked = false;
-    private TextView counter;
+    private TextView pointsCunter;
+    private int ammo;
     private ScoreManager scoreManager;
+    private AmmoManager ammoManager;
     MediaPlayer mediaPlayer;
     private int peopleKilled;
     private int animalsKilled;
@@ -42,22 +44,23 @@ public class GameManager {
     private int[] chooser = {
             0,
             1,
-            2
+            2,
+            3
     };
-    private int maxPoints=5000;
+    private int maxPoints=100;
     private int maxKills=3;
 
     //costruttore
-    public GameManager(ImageButton movingImage, ImageView man, TextView counter, Activity activity){
+    public GameManager(ImageButton movingImage, ImageView man, TextView pointsCounter, AmmoManager ammoManager, Activity activity){
         this.movingImage=movingImage;
         this.man=man;
-        this.counter=counter;
+        this.pointsCunter = pointsCounter;
+        this.ammoManager = ammoManager;
         this.activity =activity;
         random = new Random();
         scoreManager = new ScoreManager();
         peopleKilled = 0;
         animalsKilled = 0;
-        mediaPlayer = MediaPlayer.create(activity, R.raw.shoot_sound);
     }
 
     //inizzializazione parametri aniamtore asse X
@@ -136,7 +139,13 @@ public class GameManager {
 
     //controlla che tipo di immagine viene cliccata e utilizza i metodi appropriati
     public void checkImage(View view) {
+        mediaPlayer = MediaPlayer.create(activity, R.raw.shot_sound);
         mediaPlayer.start();
+        ammoManager.decreaseAmmo();
+        if(!ammoManager.hasAmmo()&&scoreManager.getPoints()<maxPoints){
+            mediaPlayer.release();
+            launchGameOver(chooser[3]);
+        }
         clicked = true;
         if(imageID==R.drawable.black_dog){
             if(!dead){
@@ -186,13 +195,14 @@ public class GameManager {
         int points = 500;
         if(clicked){
             scoreManager.increasePoints(points);
-            counter.setText(Integer.toString(scoreManager.getPoints()));
+            pointsCunter.setText(Integer.toString(scoreManager.getPoints()));
             movingImage.setImageResource(R.drawable.blackdog_dead);
         }else{
             scoreManager.decreasePoints(points);
-            counter.setText(Integer.toString(scoreManager.getPoints()));
+            pointsCunter.setText(Integer.toString(scoreManager.getPoints()));
         }
-        if(scoreManager.getPoints()>=maxPoints){
+        int p = scoreManager.getPoints();
+        if(p>=maxPoints){
             launchGameOver(chooser[2]);
         }
     }
@@ -200,13 +210,14 @@ public class GameManager {
         int points = 200;
         if(clicked){
             scoreManager.increasePoints(points);
-            counter.setText(Integer.toString(scoreManager.getPoints()));
+            pointsCunter.setText(Integer.toString(scoreManager.getPoints()));
             movingImage.setImageResource(R.drawable.monster_dead);
         }else{
             scoreManager.decreasePoints(points);
-            counter.setText(Integer.toString(scoreManager.getPoints()));
+            pointsCunter.setText(Integer.toString(scoreManager.getPoints()));
         }
-        if(scoreManager.getPoints()>=maxPoints){
+        int p = scoreManager.getPoints();
+        if(p>=maxPoints){
             launchGameOver(chooser[2]);
         }
     }
@@ -214,20 +225,21 @@ public class GameManager {
         int points = 1000;
         if(clicked){
             scoreManager.increasePoints(points);
-            counter.setText(Integer.toString(scoreManager.getPoints()));
+            pointsCunter.setText(Integer.toString(scoreManager.getPoints()));
             movingImage.setImageResource(R.drawable.hunter_dead);
         }else{
             scoreManager.decreasePoints(points);
-            counter.setText(Integer.toString(scoreManager.getPoints()));
+            pointsCunter.setText(Integer.toString(scoreManager.getPoints()));
         }
-        if(scoreManager.getPoints()>=maxPoints){
+        int p = scoreManager.getPoints();
+        if(p>=maxPoints){
             launchGameOver(chooser[2]);
         }
     }
     private void handleDog() {
         int points = 1000;
         scoreManager.decreasePoints(points);
-        counter.setText(Integer.toString(scoreManager.getPoints()));
+        pointsCunter.setText(Integer.toString(scoreManager.getPoints()));
         movingImage.setImageResource(R.drawable.dog_dead);
 
         animalsKilled++;
@@ -238,7 +250,7 @@ public class GameManager {
     private void handleElephant(){
         int points = 200;
         scoreManager.decreasePoints(points);
-        counter.setText(Integer.toString(scoreManager.getPoints()));
+        pointsCunter.setText(Integer.toString(scoreManager.getPoints()));
 
         movingImage.setImageResource(R.drawable.elephant_dead);
 
@@ -250,7 +262,7 @@ public class GameManager {
     private void handleHorse(){
         int points = 500;
         scoreManager.decreasePoints(points);
-        counter.setText(Integer.toString(scoreManager.getPoints()));
+        pointsCunter.setText(Integer.toString(scoreManager.getPoints()));
         movingImage.setImageResource(R.drawable.horse_dead);
 
         animalsKilled++;
@@ -261,7 +273,7 @@ public class GameManager {
     private void handleHatGuy(){
         int points = 1000;
         scoreManager.decreasePoints(points);
-        counter.setText(Integer.toString(scoreManager.getPoints()));
+        pointsCunter.setText(Integer.toString(scoreManager.getPoints()));
         movingImage.setImageResource(R.drawable.hatguy_dead);
 
         peopleKilled++;
@@ -272,7 +284,7 @@ public class GameManager {
     private void handleOthers(){
         int points = 1000;
         scoreManager.decreasePoints(points);
-        counter.setText(Integer.toString(scoreManager.getPoints()));
+        pointsCunter.setText(Integer.toString(scoreManager.getPoints()));
         movingImage.setImageResource(R.drawable.dead);
 
         peopleKilled++;
@@ -287,12 +299,19 @@ public class GameManager {
         switch (chooser) {
             case 0:
                 intent.putExtra("background", R.drawable.arrested_background);
+                intent.putExtra("sound", R.raw.arrested_sound);
                 return intent;
             case 1:
                 intent.putExtra("background", R.drawable.kicked_background);
+                intent.putExtra("sound", R.raw.kicked_sound);
                 return intent;
             case 2:
                 intent.putExtra("background", R.drawable.win_background);
+                intent.putExtra("sound", R.raw.win_sound);
+                return intent;
+            case 3:
+                intent.putExtra("background", R.drawable.noammo_background);
+                intent.putExtra("sound", R.raw.noammo_sound);
                 return intent;
         }
         return intent;

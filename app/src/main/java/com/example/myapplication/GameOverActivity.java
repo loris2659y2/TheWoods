@@ -3,6 +3,7 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.Layout;
 import android.view.View;
@@ -24,6 +25,11 @@ public class GameOverActivity extends BaseActivity {
         int points = getIntent().getIntExtra("points", 0);
         TextView counter = findViewById(R.id.counter);
         counter.setText(Integer.toString(points));
+
+        //ottiene il suono da riprodurre
+        int soundID = getIntent().getIntExtra("sound", 0);
+        MediaPlayer mediaPlayer = MediaPlayer.create(this, soundID);
+        mediaPlayer.start();
     }
     public void launchMenu(View view) {
         launchMenu();
