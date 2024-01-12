@@ -47,7 +47,7 @@ public class GameManager {
             2,
             3
     };
-    private int maxPoints=100;
+    private int maxPoints=5000;
     private int maxKills=3;
 
     //costruttore

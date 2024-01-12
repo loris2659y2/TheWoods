@@ -9,7 +9,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class PlayActivity extends AppCompatActivity {
+public class PlayActivity extends BaseActivity {
 
     private ImageView man;
     private TextView pointsCounter;
@@ -19,7 +19,7 @@ public class PlayActivity extends AppCompatActivity {
     private MediaPlayer mediaPlayer;
     public AmmoManager ammoManager;
     int points;
-    int maxPoints = 100;
+    int maxPoints = 5000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,5 +50,8 @@ public class PlayActivity extends AppCompatActivity {
         if(!ammoManager.hasAmmo()&&points<maxPoints){
             gameManager.launchGameOver(3);
         }
+    }
+    public void launchMenu(View view) {
+        launchMenu();
     }
 }
