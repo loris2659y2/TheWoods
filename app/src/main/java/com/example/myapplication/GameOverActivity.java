@@ -9,7 +9,7 @@ import android.text.Layout;
 import android.view.View;
 import android.widget.TextView;
 
-public class GameOverActivity extends BaseActivity {
+public class GameOverActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +32,6 @@ public class GameOverActivity extends BaseActivity {
         mediaPlayer.start();
     }
     public void launchMenu(View view) {
-        launchMenu();
+        finish();
     }
 }

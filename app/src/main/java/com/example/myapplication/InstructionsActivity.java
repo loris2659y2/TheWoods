@@ -3,7 +3,9 @@ package com.example.myapplication;
 import android.os.Bundle;
 import android.view.View;
 
-public class InstructionsActivity extends BaseActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class InstructionsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -11,6 +13,6 @@ public class InstructionsActivity extends BaseActivity {
         setContentView(R.layout.activity_scrollable);
     }
     public void launchMenu(View view) {
-        launchMenu();
+        finish();
     }
 }

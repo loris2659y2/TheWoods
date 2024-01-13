@@ -9,7 +9,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class PlayActivity extends BaseActivity {
+public class PlayActivity extends AppCompatActivity {
 
     private ImageView man;
     private TextView pointsCounter;
@@ -52,6 +52,6 @@ public class PlayActivity extends BaseActivity {
         }
     }
     public void launchMenu(View view) {
-        launchMenu();
+        finish();
     }
 }
