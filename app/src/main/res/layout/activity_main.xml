@@ -10,31 +10,31 @@
 
     <ImageView
         android:id="@+id/startButton"
-        android:layout_width="374dp"
-        android:layout_height="213dp"
+        android:layout_width="268dp"
+        android:layout_height="92dp"
         android:background="@null"
         android:onClick="launchGame"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.432"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.389"
+        app:layout_constraintVertical_bias="0.446"
         app:srcCompat="@drawable/start_button"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageView
         android:id="@+id/instructionsButton"
-        android:layout_width="374dp"
-        android:layout_height="213dp"
+        android:layout_width="268dp"
+        android:layout_height="92dp"
         android:background="@null"
         android:onClick="launchInstructions"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.432"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.801"
+        app:layout_constraintVertical_bias="0.676"
         app:srcCompat="@drawable/instructions_button"
         tools:ignore="SpeakableTextPresentCheck" />
 

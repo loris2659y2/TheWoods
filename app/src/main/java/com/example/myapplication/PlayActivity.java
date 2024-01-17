@@ -18,8 +18,6 @@ public class PlayActivity extends AppCompatActivity {
     private ImageButton movingImage;
     private MediaPlayer mediaPlayer;
     public AmmoManager ammoManager;
-    int points;
-    int maxPoints = 5000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +31,6 @@ public class PlayActivity extends AppCompatActivity {
         movingImage = findViewById(R.id.movingImage);
         man = findViewById(R.id.man);
         pointsCounter = findViewById(R.id.pointsCounter);
-        points = Integer.parseInt(pointsCounter.getText().toString());
         ammoCounter = findViewById(R.id.ammoCounter);
         ammoManager = new AmmoManager(ammoCounter);
         gameManager = new GameManager(movingImage, man, pointsCounter, ammoManager, this);
@@ -47,7 +44,7 @@ public class PlayActivity extends AppCompatActivity {
         mediaPlayer = MediaPlayer.create(this, R.raw.shot_sound);
         mediaPlayer.start();
         ammoManager.decreaseAmmo();
-        if(!ammoManager.hasAmmo()&&points<maxPoints){
+        if(!ammoManager.hasAmmo()){
             gameManager.launchGameOver(3);
         }
     }

@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 public class ScoreManager {
     private int points;
+    private int maxPoints = 5000;
 
     public ScoreManager() {
         points = 0;
@@ -21,5 +22,9 @@ public class ScoreManager {
 
     public void resetPoints() {
         points = 0;
+    }
+
+    public int getMaxPoints() {
+        return maxPoints;
     }
 }

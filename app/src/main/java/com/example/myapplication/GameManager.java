@@ -47,7 +47,6 @@ public class GameManager {
             2,
             3
     };
-    private int maxPoints=5000;
     private int maxKills=3;
 
     //costruttore
@@ -142,7 +141,7 @@ public class GameManager {
         mediaPlayer = MediaPlayer.create(activity, R.raw.shot_sound);
         mediaPlayer.start();
         ammoManager.decreaseAmmo();
-        if(!ammoManager.hasAmmo()&&scoreManager.getPoints()<maxPoints){
+        if(!ammoManager.hasAmmo()){
             mediaPlayer.release();
             launchGameOver(chooser[3]);
         }
@@ -191,6 +190,7 @@ public class GameManager {
     }
 
     //metodi che gestiscono ciascuna immagine
+
     private void handleBlackdog(boolean clicked){
         int points = 500;
         if(clicked){
@@ -201,8 +201,7 @@ public class GameManager {
             scoreManager.decreasePoints(points);
             pointsCunter.setText(Integer.toString(scoreManager.getPoints()));
         }
-        int p = scoreManager.getPoints();
-        if(p>=maxPoints){
+        if(scoreManager.getPoints()>= scoreManager.getMaxPoints()){
             launchGameOver(chooser[2]);
         }
     }
@@ -216,8 +215,7 @@ public class GameManager {
             scoreManager.decreasePoints(points);
             pointsCunter.setText(Integer.toString(scoreManager.getPoints()));
         }
-        int p = scoreManager.getPoints();
-        if(p>=maxPoints){
+        if(scoreManager.getPoints()>= scoreManager.getMaxPoints()){
             launchGameOver(chooser[2]);
         }
     }
@@ -232,7 +230,7 @@ public class GameManager {
             pointsCunter.setText(Integer.toString(scoreManager.getPoints()));
         }
         int p = scoreManager.getPoints();
-        if(p>=maxPoints){
+        if(scoreManager.getPoints()>= scoreManager.getMaxPoints()){
             launchGameOver(chooser[2]);
         }
     }
